@@ -9,10 +9,10 @@ library(tidyverse)
 url1<-"https://www.imdb.com/list/ls522886649/?view=detailed&sort=user_rating,desc&st_dt=&mode=detail&page=1&ref_=ttls_vm_dtl"
 webpage<-read_html(url1)
 
-#Select the column´s data by name, year, genre, rating, vote, and synopses. Also, we fix the data to get the same number of rows.
+#Select the columnÂ´s data by name, year, genre, rating, vote, and synopses. Also, we fix the data to get the same number of rows.
 titles<-html_nodes(webpage,".lister-item-index+ a")%>% html_text()
 
-year<-html_nodes(webpage,".unbold:nth-child(3)") %>% html_text() #%>% str_replace_all("[//(//)]","")#
+year<-html_nodes(webpage,".unbold:nth-child(3)") %>% html_text() #The code "%>% str_replace_all("[//(//)]","")" is for cleaning the "()" symbol, but we don't apply because we will use SQL for it#
 length(year)
 yearfix<-year[! year %in% c(year[1],year[2],year[3],year[4])]
 
@@ -33,7 +33,7 @@ synopsis<-html_nodes(webpage,"p:nth-child(3) , .ipl-rating-widget+ p") %>% html_
 length(synopsis)
 synopsisfix<-synopsis[! synopsis %in% c(synopsis[71])]
 
-#We check if the columns have the same number of rows after fixing the vectors above.
+# After fixing the vectors above, We check if the columns have the same number of rows.
 length(titles)
 length(yearfix)
 length(genre)
